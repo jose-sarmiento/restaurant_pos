@@ -1,3 +1,3 @@
 # Restaurant POS with Inventory System
 
-# initial Commit - Aldrin testing
+# initial Commit - Aldrin test

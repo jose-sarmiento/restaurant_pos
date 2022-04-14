@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('address');
-            $table->string('image')->nullable();
-            $table->timestamps();
+        Schema::create('category_menu', function (Blueprint $table) {
+             $table->unsignedBigInteger('category_id');
+             $table->unsignedBigInteger('menu_id');
+
+             $table->foreign('category_id')->references('id')->on('categories');
+             $table->foreign('menu_id')->references('id')->on('menus');
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('category_menu');
     }
 };

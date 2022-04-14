@@ -16,11 +16,17 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:4',
+            'firstname' => 'required|min:2',
+            'lastname' => 'required|min:2',
+            'image' => 'required',
+            'address' => 'required',
         ]);
  
         $customer = Customer::create([
-            "name" => $request->name
+            "firstname" => $request->firstname,
+            "lastname" => $request->lastname,
+            "image" => $request->image,
+            "address" => $request->address,
         ]);
 
         return response()->json($customer, 201);
@@ -34,11 +40,17 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|min:4',
+            'firstname' => 'required|min:2',
+            'lastname' => 'required|min:2',
+            'image' => 'required',
+            'address' => 'required',
         ]);
 
         $customer = Customer::find($id);
-        $customer->name = $request->name;
+        $customer->firstname = $request->firstname;
+        $customer->lastname = $request->lastname;
+        $customer->image = $request->image;
+        $customer->address = $request->address;
         $customer->save();
 
         return response()->json($customer);

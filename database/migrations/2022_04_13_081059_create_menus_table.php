@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            // $table->unsignedBigInteger('category_id');
             $table->string("name");
             $table->string("image");
             $table->string("price");
             $table->integer("qty_available");
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
+            // $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

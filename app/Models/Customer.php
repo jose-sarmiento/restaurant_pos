@@ -9,6 +9,8 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["name", "image"];
+
     public function menus() {
         return $this->hasMany(Menu::class);
     }

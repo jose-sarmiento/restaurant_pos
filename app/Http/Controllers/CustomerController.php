@@ -10,7 +10,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return response()->json($customers);
+        return response()->json(["data" => $customers]);
     }
 
     public function store(Request $request)
@@ -18,47 +18,45 @@ class CustomerController extends Controller
         $this->validate($request, [
             'firstname' => 'required|min:2',
             'lastname' => 'required|min:2',
-            'image' => 'required',
             'address' => 'required',
         ]);
- 
-        $customer = Customer::create([
-            "firstname" => $request->firstname,
-            "lastname" => $request->lastname,
-            "image" => $request->image,
-            "address" => $request->address,
-        ]);
 
+        $data = $request->all();
+        $customer = Customer::create($data);
         return response()->json($customer, 201);
     }
 
     public function show(Customer $customer)
     {
-        return response()->json($customer);
+        return response()->json(["data" => $customer]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Customer $customer)
     {
         $this->validate($request, [
-            'firstname' => 'required|min:2',
-            'lastname' => 'required|min:2',
-            'image' => 'required',
-            'address' => 'required',
+            'firstname' => 'min:2',
+            'lastname' => 'min:2',
         ]);
 
-        $customer = Customer::find($id);
-        $customer->firstname = $request->firstname;
-        $customer->lastname = $request->lastname;
-        $customer->image = $request->image;
-        $customer->address = $request->address;
-        $customer->save();
+        if ($request->has('firstname')) $customer->firstname = $request->firstname;
+        if ($request->has('lastname')) $customer->lastname = $request->lastname;
+        if ($request->has('image')) $customer->image = $request->image;
+        if ($request->has('address')) $customer->address = $request->address;
 
-        return response()->json($customer);
+        if (!$customer->isDirty()) {
+           return response()->json([
+                "error" => "You need to specify another value", 
+                "code" => 422
+            ], 422); 
+        }
+
+        $customer->save();
+        return response()->json(["data" => $customer]);
     }
 
     public function destroy(Customer $customer)
     {
-        $deleted_custmer = $customer->delete();
-        return $deleted_custmer;
+        $deleted_customer = $customer->delete();
+        return $deleted_customer;
     }
 }

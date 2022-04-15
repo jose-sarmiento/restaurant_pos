@@ -14,7 +14,7 @@ class CategoryMenuController extends Controller
      */
     public function index(Category $category)
     {
-        $menus = $category->menus();
+        $menus = $category->menus()->get();
 
         return response()->json(["data" => $menus]);
     }

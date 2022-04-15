@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('customers', CustomerController::class,['except' => ['create', 'edit']]);
+
 Route::resource('categories', CategoryController::class,['except' => ['create', 'edit']]);
 Route::resource('categories.menus', CategoryMenuController::class,['only' => ['index']]);
+
 Route::resource('menus', MenuController::class,['except' => ['create', 'edit']]);

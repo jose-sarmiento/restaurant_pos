@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FallbackController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Home Page
+Route::get('/', HomeController::class);
+
+// Fallback Route - Overwrites 404 error
+Route:: fallback(FallbackController::class);

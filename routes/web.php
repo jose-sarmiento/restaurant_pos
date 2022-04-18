@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 // Home Page
-Route::get('/', HomeController::class);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Fallback Route - Overwrites 404 error
 Route:: fallback(FallbackController::class);
+
+

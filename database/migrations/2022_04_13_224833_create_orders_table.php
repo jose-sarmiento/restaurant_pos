@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('menu_id');
             $table->string('total_payment');
+            $table->enum('payment_method', ['paypal', 'cash']);
             $table->integer('qty');
             $table->enum('status', ['completed', 'preparing', 'pending']);
             $table->enum('type', ['dine in', 'to go', 'delivery']);

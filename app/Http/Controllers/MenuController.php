@@ -13,11 +13,22 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $menus = Menu::all();
+        $orderBy = $request->query('orderby');
 
-        return response()->json(["data" => $menus]);
+        $menus = DB::table('menus');
+         
+        if ($orderBy) {
+            $sort_arr = explode('|', $orderBy);
+            foreach($sort_arr as $s) {
+                $menus->orderBy($s, 'ASC');
+            }
+        }   
+
+        $menus = $menus->paginate(15);
+            
+        return response()->json($menus);
     }
 
     /**

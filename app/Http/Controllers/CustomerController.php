@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
-        return response()->json(["data" => $customers]);
+        $sortBy = $request->query('sortby');
+
+        $customers = DB::table('customers')
+            ->leftJoin('orders', 'orders.customer_id', '=', 'customers.id')
+            ->select('customers.*', DB::raw('COUNT(orders.customer_id) as no_of_orders'))
+            ->groupBy('customers.id');
+            ->paginate(15);
+        return response()->json($customers);
     }
 
     public function store(Request $request)

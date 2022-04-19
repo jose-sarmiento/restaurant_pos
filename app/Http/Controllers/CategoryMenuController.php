@@ -12,9 +12,18 @@ class CategoryMenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index(Request $request, Category $category)
     {
-        $menus = $category->menus()->get();
+        $orderBy = $request->query('orderby');
+        $menus = $category->menus();
+
+        if ($orderBy) {
+            $sort_arr = explode('|', $orderBy);
+            foreach($sort_arr as $s) {
+                $menus->orderBy($s, 'ASC');
+            }
+        }   
+        $menus = $menus->paginate(15);
 
         return response()->json(["data" => $menus]);
     }

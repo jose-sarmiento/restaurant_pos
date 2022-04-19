@@ -3,7 +3,9 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryMenuController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +30,7 @@ Route::resource('categories', CategoryController::class,['except' => ['create', 
 Route::resource('categories.menus', CategoryMenuController::class,['only' => ['index']]);
 
 Route::resource('menus', MenuController::class,['except' => ['create', 'edit']]);
+
+Route::resource('orders', OrderController::class,['except' => ['create', 'edit']]);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);

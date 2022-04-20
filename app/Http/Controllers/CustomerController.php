@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+        $sortBy = $request->query('sortby');
+
+        $customers = DB::table('customers')
+            ->leftJoin('orders', 'orders.customer_id', '=', 'customers.id')
+            ->select('customers.*', DB::raw('COUNT(orders.customer_id) as no_of_orders'))
+            ->groupBy('customers.id');
+            ->paginate(15);
         return response()->json($customers);
     }
 
@@ -18,47 +25,45 @@ class CustomerController extends Controller
         $this->validate($request, [
             'firstname' => 'required|min:2',
             'lastname' => 'required|min:2',
-            'image' => 'required',
             'address' => 'required',
         ]);
- 
-        $customer = Customer::create([
-            "firstname" => $request->firstname,
-            "lastname" => $request->lastname,
-            "image" => $request->image,
-            "address" => $request->address,
-        ]);
 
+        $data = $request->all();
+        $customer = Customer::create($data);
         return response()->json($customer, 201);
     }
 
     public function show(Customer $customer)
     {
-        return response()->json($customer);
+        return response()->json(["data" => $customer]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Customer $customer)
     {
         $this->validate($request, [
-            'firstname' => 'required|min:2',
-            'lastname' => 'required|min:2',
-            'image' => 'required',
-            'address' => 'required',
+            'firstname' => 'min:2',
+            'lastname' => 'min:2',
         ]);
 
-        $customer = Customer::find($id);
-        $customer->firstname = $request->firstname;
-        $customer->lastname = $request->lastname;
-        $customer->image = $request->image;
-        $customer->address = $request->address;
-        $customer->save();
+        if ($request->has('firstname')) $customer->firstname = $request->firstname;
+        if ($request->has('lastname')) $customer->lastname = $request->lastname;
+        if ($request->has('image')) $customer->image = $request->image;
+        if ($request->has('address')) $customer->address = $request->address;
 
-        return response()->json($customer);
+        if (!$customer->isDirty()) {
+           return response()->json([
+                "error" => "You need to specify another value", 
+                "code" => 422
+            ], 422); 
+        }
+
+        $customer->save();
+        return response()->json(["data" => $customer]);
     }
 
     public function destroy(Customer $customer)
     {
-        $deleted_custmer = $customer->delete();
-        return $deleted_custmer;
+        $customer->delete();
+        return response()->json(["message" => "success"]);
     }
 }

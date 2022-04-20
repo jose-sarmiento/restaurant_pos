@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryMenuController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +25,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('customers', CustomerController::class,['except' => ['create', 'edit']]);
+
+Route::resource('categories', CategoryController::class,['except' => ['create', 'edit']]);
+Route::resource('categories.menus', CategoryMenuController::class,['only' => ['index']]);
+
+Route::resource('menus', MenuController::class,['except' => ['create', 'edit']]);
+
+Route::resource('orders', OrderController::class,['except' => ['create', 'edit']]);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);

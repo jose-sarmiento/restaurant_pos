@@ -25,7 +25,7 @@ class CategoryMenuController extends Controller
         }   
         $menus = $menus->paginate(15);
 
-        return response()->json(["data" => $menus]);
+        return response()->json($menus);
     }
 
 }

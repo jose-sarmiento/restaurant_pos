@@ -15,9 +15,29 @@ class CustomerController extends Controller
         $customers = DB::table('customers')
             ->leftJoin('orders', 'orders.customer_id', '=', 'customers.id')
             ->select('customers.*', DB::raw('COUNT(orders.customer_id) as no_of_orders'))
-            ->groupBy('customers.id');
+            ->groupBy('customers.id')
             ->paginate(15);
         return response()->json($customers);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->query('q');
+        $customers = Customer::where('firstname', 'like', '%' . $keyword . '%')
+            ->orWhere('lastname', 'like', '%' . $keyword . '%')
+            ->paginate(15);
+
+        return response()->json(["result" => $customers]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     public function store(Request $request)
@@ -35,7 +55,18 @@ class CustomerController extends Controller
 
     public function show(Customer $customer)
     {
-        return response()->json(["data" => $customer]);
+        return response()->json($customer);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     public function update(Request $request, Customer $customer)
@@ -58,7 +89,7 @@ class CustomerController extends Controller
         }
 
         $customer->save();
-        return response()->json(["data" => $customer]);
+        return response()->json($customer);
     }
 
     public function destroy(Customer $customer)

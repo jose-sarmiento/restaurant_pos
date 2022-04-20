@@ -24,11 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('customers/search', [CustomerController::class, 'search']);
 Route::resource('customers', CustomerController::class,['except' => ['create', 'edit']]);
 
 Route::resource('categories', CategoryController::class,['except' => ['create', 'edit']]);
 Route::resource('categories.menus', CategoryMenuController::class,['only' => ['index']]);
 
+Route::get('menus/search', [MenuController::class, 'search']);
 Route::resource('menus', MenuController::class,['except' => ['create', 'edit']]);
 
 Route::resource('orders', OrderController::class,['except' => ['create', 'edit']]);

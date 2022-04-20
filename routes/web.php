@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FallbackController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+// Enables verification
+Auth::routes(['verify' => true]);
 
 // Home Page
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+// Dashboard Page
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
 // Fallback Route - Overwrites 404 error
 Route:: fallback(FallbackController::class);

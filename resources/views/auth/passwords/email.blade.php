@@ -36,6 +36,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
+                                @if (Route::has('login'))
+                                    <a class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Return to Login') }}
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </form>

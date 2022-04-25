@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FallbackController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -23,10 +23,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 
 // Home Page
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-// Dashboard Page
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // controllers temporary return json response while frontend not yet ready
 Route::get('customers/search', [CustomerController::class, 'search']);

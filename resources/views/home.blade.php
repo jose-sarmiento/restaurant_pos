@@ -47,22 +47,45 @@
                 @endguest
             </ul>
         </div>
-        <div class="col-md-8">
-            
-            <div class="card">
-                <div class="card-header">{{ __('Home') }}</div>
+        <div class="col-md-6">
+            <form data-search-form class="search-container mb-3">
+                <div class="input-group">
+                  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                  <button type="submit" class="btn btn-outline-primary">search</button>
+                </div>
+            </form>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+            <div class="categories">
+                <h4>Categories</h4>
+                <ul id="categories">
+                    @foreach ($categories as $category)
+                        <li data-category="{{$category->id}}">{{$category->category}}</li>
+                    @endforeach
+                </ul>
+            </div>
 
-                    {{ __('You are logged in!') }}
+            <div class="menus">
+                <h4>Menus</h4>
+                <p data-loading class="loading hide">Loading...</p>
+                <ul data-menu-list></ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h4>Orders</h4>
+            <div data-order-list></div>
+            <div>
+                <div class="row">
+                    <div class="col-md-8">Discount</div>
+                    <div class="col-md-4 text-right">0</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">Subtotal</div>
+                    <div class="col-md-4 text-right" data-orders-subtotal>90</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="module" src="{{ asset('js/home.js') }}"></script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $query = $request->query('category');
+        if (!$query) $query = 'hot dishes';
+        $query = str_replace("-", " ", $query);
+
+        $categories = Category::all();
+        $category = Category::where('category', $query)->get();
+        $menus = $category[0]->menus;
+
+        return view('home', ['menus' => $menus, 'categories' => $categories]);
     }
 }

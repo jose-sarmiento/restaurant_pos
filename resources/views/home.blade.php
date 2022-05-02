@@ -70,9 +70,25 @@
                 <ul data-menu-list></ul>
             </div>
         </div>
-        <div class="col-md-4">
-            <h4>Orders</h4>
+        <div class="col-md-4 border">
+            <h4>Customer</h4>
+            <div class="form-group mb-2">
+                <label for="payment-method">Firstname</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="payment-method">Lastname</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="payment-method">Address</label>
+                <input type="text" class="form-control">
+            </div>
+            <h4>Confirmation</h4>
             <div data-order-list></div>
+            <hr/>
             <div>
                 <div class="row">
                     <div class="col-md-8">Discount</div>
@@ -83,6 +99,34 @@
                     <div class="col-md-4 text-right" data-orders-subtotal>90</div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-2 border">
+            <h4>Payment</h4>
+            <form class="form">
+                <div class="form-group mb-2">
+                    <label for="payment-method">Payment method</label>
+                    <select class="form-control">
+                        <option value="cash">cash</option>
+                        <option value="paypal">paypal</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="payment-method">Order type</label>
+                    <select class="form-control">
+                        <option value="dine in">Dine in</option>
+                        <option value="to go">To go</option>
+                        <option value="delivery">Delivery</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="payment-method">Table no.</label>
+                    <input type="number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Confirm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

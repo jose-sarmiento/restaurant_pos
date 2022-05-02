@@ -67,7 +67,7 @@ function displayMenus(menus) {
 	menus.forEach(m => {
 		menusContainer.insertAdjacentHTML(
 			"beforeend",
-			`<p data-menu="${m.id}">${m.name}</p>`
+			`<p data-menu="${m.id}">${m.name} &middot; $${m.price}</p>`
 		);
 	});
 }

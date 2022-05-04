@@ -30,7 +30,10 @@ class HomeController extends Controller
 
         $categories = Category::all();
         $category = Category::where('category', $query)->get();
-        $menus = $category[0]->menus;
+        $menus = [];
+        if (count($category) > 0) {
+            $menus = $category[0]->menus;
+        }
 
         return view('home', ['menus' => $menus, 'categories' => $categories]);
     }

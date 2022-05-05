@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MenuController extends Controller
 {
@@ -48,6 +49,40 @@ class MenuController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function invoice()
+    {
+        $data = [
+            "menus" => Menu::withCount('orders')->get(),
+            "sales" => DB::table('orders')->sum('total_payment')
+        ];
+        
+        return view('pdf.invoice', $data);
+        // $pdf = PDF::loadView('pdf.invoice-pdf', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('pdf.invoice-pdf', $data);
+        return $pdf->download('invoice.pdf');
+    }
+
+     /**
+     * Download the pdf.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function invoicePdf()
+    {
+        $data = [
+            "menus" => Menu::withCount('orders')->get(),
+            "sales" => DB::table('orders')->sum('total_payment')
+        ];
+        
+        $pdf = PDF::loadView('pdf.invoice-pdf', $data);
+        return $pdf->download('invoice.pdf');
     }
 
     /**

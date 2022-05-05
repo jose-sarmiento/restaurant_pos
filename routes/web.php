@@ -33,8 +33,6 @@ Route::resource('customers', CustomerController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('categories.menus', CategoryMenuController::class,['only' => ['index']]);
 
-Route::get('menus/invoice', [MenuController::class, 'invoice']);
-Route::get('menus/invoice-pdf', [MenuController::class, 'invoicePdf']);
 Route::get('menus/search', [MenuController::class, 'search']);
 Route::resource('menus', MenuController::class);
 

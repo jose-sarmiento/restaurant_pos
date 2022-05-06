@@ -7,18 +7,30 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
+    /**
+     * Show the application home.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return [
-            1 => "user1",
-            2 => "user2",
-            3 => "user3",
-            4 => "user4"
-        ];
+        return view('home');
+        //return view('auth.registerUser');
+        // return [
+        //     1 => "user1",
+        //     2 => "user2",
+        //     3 => "user3",
+        //     4 => "user4"
+        // ];
     }
 
     /**

@@ -68,6 +68,8 @@
                                         {{ __('Click to Register') }}
                                     </a>
                                 @endif
+
+                             
                             </div>
                         </div>
                     </form>

@@ -6,6 +6,7 @@ use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +43,8 @@ Route::resource('orders', OrderController::class);
 Route:: fallback(FallbackController::class);
 
 
+// User End
+
+// Login User Link
+Route::get('/login/user', [UserController::class, 'index'])->name('loginUser');
+Route::get('/register/user', [UserController::class, 'index'])->name('RegisterUser');

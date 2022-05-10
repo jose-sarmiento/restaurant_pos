@@ -47,3 +47,37 @@
     * update
     * delete
 
+* **FallBack Routes** 
+    * If page doesnt Exist return an error landing page
+    * Customized the default route showing error
+    * Guide admin if mistype link navigation that the page does not exist
+
+* **Authentication**   
+    * Creates account for Admin
+    * Uses laravel Bootstrap
+    * Register Form
+    * Login Form
+
+* **Email Verification** 
+    * modified env file to create an account 
+      that will act as verifier of sending email of the system
+    * the token for email verification expires with in 1 hour
+
+* **Forgot Password** 
+    * added feature if user want to change or 
+      forgets the password for login credentials
+
+* **Fixed Activity lapses** 
+    * If user registered is not verified cannot access the 
+      navigations contents
+
+* **Repilcate the Navigation Bar of Proposed Frontend** 
+    * Copied the layout of navigation bar regards to 
+      the proposed layout.
+
+* **Implemented Auth User Token Authentication** 
+    * Added navigation details for a logged in user will be
+      shown if only has verified and knows the credentials.
+      Therefore no one can access the account with knowing 
+      the details.
+      

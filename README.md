@@ -14,7 +14,7 @@
     * **status** - finished
 
 ### Task finished
-
+<!-- Jose Sarmiento -->
 * **Menu / products** 
     * list all menus
     * searching
@@ -47,6 +47,7 @@
     * update
     * delete
 
+<!-- Aldrin Mayor -->
 * **FallBack Routes** 
     * If page doesnt Exist return an error landing page
     * Customized the default route showing error
